@@ -117,6 +117,7 @@ function App() {
         api.removeCard(card._id)
         .then((newCard) => {
             // console.log(newCard);
+            // console.log(newCard);
             const removeCard = cards.filter((c) => c._id !== card._id);
             setCards(removeCard);
         })
