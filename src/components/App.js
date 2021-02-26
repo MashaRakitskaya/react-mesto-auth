@@ -9,7 +9,9 @@ import { CurrentUserContext }  from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
 import AddPlacePopup from "./AddPlacePopup.js";
-import Register from "./Register.js"
+import Register from "./Register.js";
+import Login from "./Login.js";
+import { Route, Switch } from 'react-router-dom';
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -125,7 +127,9 @@ function App() {
         <div className="page">
             <div className="page__container">
                 <CurrentUserContext.Provider value={currentUser}>
+                    <Switch>
                         <Register />
+                        <Login />
                         <Header />
                         <Main
                             handleEditAvatarClick={handleEditAvatarClick}                 
@@ -168,6 +172,8 @@ function App() {
                                 <button type="submit" className="popup__save popup__save_type_deleteСard">Да</button>
                             </>}
                         />
+                    </Switch>
+                        
                 </CurrentUserContext.Provider>
             </div>
         </div>

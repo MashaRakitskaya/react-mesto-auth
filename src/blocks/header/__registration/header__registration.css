@@ -1,4 +1,4 @@
-.header__login {
+.header__registration {
     align-self: center;
     outline: none;
     font-weight: normal;
@@ -14,6 +14,6 @@
     opacity: 1;
     transition: opacity 0.2s ease;
 }
-.header__login:hover {
+.header__registration:hover {
     opacity: 0.6;
 }
