@@ -11,7 +11,7 @@ import EditAvatarPopup from "./EditAvatarPopup.js";
 import AddPlacePopup from "./AddPlacePopup.js";
 import Register from "./Register.js";
 import Login from "./Login.js";
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -21,6 +21,9 @@ function App() {
     const [selectedCard, setSelectedCard] = useState({});
     const [currentUser, setCurrentUser] = useState({});
     const [cards, setCards] = useState([]);
+    const [loggedIn, setLoggedIn] = useState(false);
+    // const loggedIn = false;
+
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true)
     };
@@ -129,50 +132,85 @@ function App() {
             <div className="page__container">
                 <CurrentUserContext.Provider value={currentUser}>
                     <Switch>
-                        <Register />
-                        <Login />
-                        <Header />
-                        <Main
-                            handleEditAvatarClick={handleEditAvatarClick}                 
-                            handleEditProfileClick={handleEditProfileClick}        
-                            handleAddPlaceClick={handleAddPlaceClick}
-                            handleCardClick={handleCardClick}
-                            handleLikeClick={handleCardLike}
-                            handleCardDelete={handleCardDelete}
-                            cards={cards}
-                        />
-                        <Footer />
-                        <ImagePopup
-                            card={selectedCard}
-                            onClose={closeAllPopups}
-                            isOpen={isBigPhotoPopupOpen}
-                            onOvarlayClose={closeByOverlay}
-                        />
-                        <EditProfilePopup
-                            isOpen={isEditProfilePopupOpen}
-                            onClose={closeAllPopups}
-                            onOvarlayClose={closeByOverlay}
-                            onSubmit={handleUpdateUser}
-                        />
-                        <AddPlacePopup
-                            isOpen={isAddPlacePopupOpen}
-                            onClose={closeAllPopups}
-                            onOvarlayClose={closeByOverlay}
-                            onSubmit={handleAddPlaceSubmit}
-                        />
-                        <EditAvatarPopup
-                            isOpen={isEditAvatarPopupOpen}
-                            onClose={closeAllPopups}
-                            onOvarlayClose={closeByOverlay}
-                            onSubmit={handleUpdateAvatar}
-                        /> 
-                        <PopupWithForm 
-                            name="deleteСard"
-                            title="Вы уверены?" 
-                            children={<>
-                                <button type="submit" className="popup__save popup__save_type_deleteСard">Да</button>
-                            </>}
-                        />
+                            <Route path="/sign-up">
+                                <Register />
+                            </Route>
+
+                            <Route path="/sign-in">
+                            <Login />
+                            </Route>
+
+                            <Route path="/main">
+                                <Header />
+                                <Main
+                                    handleEditAvatarClick={handleEditAvatarClick}                 
+                                    handleEditProfileClick={handleEditProfileClick}        
+                                    handleAddPlaceClick={handleAddPlaceClick}
+                                    handleCardClick={handleCardClick}
+                                    handleLikeClick={handleCardLike}
+                                    handleCardDelete={handleCardDelete}
+                                    cards={cards}
+                                />
+                                <Footer />
+                            </Route>
+            
+                            <Route>
+                                <ImagePopup
+                                    card={selectedCard}
+                                    onClose={closeAllPopups}
+                                    isOpen={isBigPhotoPopupOpen}
+                                    onOvarlayClose={closeByOverlay}
+                                />
+                            </Route>
+
+                            <Route>
+                                <EditProfilePopup
+                                    isOpen={isEditProfilePopupOpen}
+                                    onClose={closeAllPopups}
+                                    onOvarlayClose={closeByOverlay}
+                                    onSubmit={handleUpdateUser}
+                                />
+                            </Route>
+
+                            <Route>
+                                <AddPlacePopup
+                                    isOpen={isAddPlacePopupOpen}
+                                    onClose={closeAllPopups}
+                                    onOvarlayClose={closeByOverlay}
+                                    onSubmit={handleAddPlaceSubmit}
+                                />
+                            </Route>
+
+                            <Route>
+                                <EditAvatarPopup
+                                    isOpen={isEditAvatarPopupOpen}
+                                    onClose={closeAllPopups}
+                                    onOvarlayClose={closeByOverlay}
+                                    onSubmit={handleUpdateAvatar}
+                                /> 
+                            </Route>
+
+                            <Route>
+                                <PopupWithForm 
+                                    name="deleteСard"
+                                    title="Вы уверены?" 
+                                    children={<>
+                                        <button type="submit" className="popup__save popup__save_type_deleteСard">Да</button>
+                                    </>}
+                                />
+                            </Route>
+
+                        
+                        
+                        
+                        
+                        
+
+                        <Route>
+                            {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
+                        </Route>
+                        
+
                     </Switch>
                         
                 </CurrentUserContext.Provider>
