@@ -12,6 +12,7 @@ import AddPlacePopup from "./AddPlacePopup.js";
 import Register from "./Register.js";
 import Login from "./Login.js";
 import { Route, Switch, Redirect } from 'react-router-dom';
+import ProtectedRoute from "./ProtectedRoute.js";
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -140,7 +141,68 @@ function App() {
                             <Login />
                             </Route>
 
-                            <Route path="/main">
+                            <Header />
+
+                            <ProtectedRoute
+                                path="/main"
+                                loggedIn={loggedIn}
+                                component={Main}
+                                handleEditAvatarClick={handleEditAvatarClick}                 
+                                handleEditProfileClick={handleEditProfileClick}        
+                                handleAddPlaceClick={handleAddPlaceClick}
+                                handleCardClick={handleCardClick}
+                                handleLikeClick={handleCardLike}
+                                handleCardDelete={handleCardDelete}
+                                cards={cards}
+                                
+                            />
+
+                            {loggedIn && <Footer />}
+
+                            
+
+                            <ImagePopup
+                                card={selectedCard}
+                                onClose={closeAllPopups}
+                                isOpen={isBigPhotoPopupOpen}
+                                onOvarlayClose={closeByOverlay}
+                            />
+                            
+                            <EditProfilePopup
+                                isOpen={isEditProfilePopupOpen}
+                                onClose={closeAllPopups}
+                                onOvarlayClose={closeByOverlay}
+                                onSubmit={handleUpdateUser}
+                            />
+                            
+                            <AddPlacePopup
+                                isOpen={isAddPlacePopupOpen}
+                                onClose={closeAllPopups}
+                                onOvarlayClose={closeByOverlay}
+                                onSubmit={handleAddPlaceSubmit}
+                            />
+                            
+                            <EditAvatarPopup
+                                isOpen={isEditAvatarPopupOpen}
+                                onClose={closeAllPopups}
+                                onOvarlayClose={closeByOverlay}
+                                onSubmit={handleUpdateAvatar}
+                            /> 
+                           
+                            <PopupWithForm 
+                                name="deleteСard"
+                                title="Вы уверены?" 
+                                children={<>
+                                    <button type="submit" className="popup__save popup__save_type_deleteСard">Да</button>
+                                </>}
+                            />
+
+                            <Route>
+                                {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
+                            </Route>
+                           
+                            {/* <ProtectedRoute path="/ducks" loggedIn={loggedIn} onSignOut={handleSignOut} component={Ducks} /> */}
+                            {/* <Route path="/main">
                                 <Header />
                                 <Main
                                     handleEditAvatarClick={handleEditAvatarClick}                 
@@ -152,9 +214,8 @@ function App() {
                                     cards={cards}
                                 />
                                 <Footer />
-                            </Route>
-            
-                            <Route>
+                            </Route> */}
+                            {/* <Route>
                                 <ImagePopup
                                     card={selectedCard}
                                     onClose={closeAllPopups}
@@ -162,7 +223,6 @@ function App() {
                                     onOvarlayClose={closeByOverlay}
                                 />
                             </Route>
-
                             <Route>
                                 <EditProfilePopup
                                     isOpen={isEditProfilePopupOpen}
@@ -171,7 +231,6 @@ function App() {
                                     onSubmit={handleUpdateUser}
                                 />
                             </Route>
-
                             <Route>
                                 <AddPlacePopup
                                     isOpen={isAddPlacePopupOpen}
@@ -180,7 +239,6 @@ function App() {
                                     onSubmit={handleAddPlaceSubmit}
                                 />
                             </Route>
-
                             <Route>
                                 <EditAvatarPopup
                                     isOpen={isEditAvatarPopupOpen}
@@ -189,7 +247,6 @@ function App() {
                                     onSubmit={handleUpdateAvatar}
                                 /> 
                             </Route>
-
                             <Route>
                                 <PopupWithForm 
                                     name="deleteСard"
@@ -198,19 +255,7 @@ function App() {
                                         <button type="submit" className="popup__save popup__save_type_deleteСard">Да</button>
                                     </>}
                                 />
-                            </Route>
-
-                        
-                        
-                        
-                        
-                        
-
-                        <Route>
-                            {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
-                        </Route>
-                        
-
+                            </Route> */}
                     </Switch>
                         
                 </CurrentUserContext.Provider>
