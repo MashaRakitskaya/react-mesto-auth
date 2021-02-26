@@ -3,10 +3,9 @@ import Header from './Header.js';
 function Register() {
     return(
         <>
-        <Header>
+        {/* <Header>
             <button className="header__login">Войти</button>
-            {/* <Link to="/sign-in" className="header__login">Войти</Link> */}
-        </Header>
+        </Header> */}
         <section className="sign-up">
             <div className="sign-up__content">
             <h3 className="sign-up__title">Регистрация</h3>

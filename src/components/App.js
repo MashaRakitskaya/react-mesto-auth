@@ -132,76 +132,85 @@ function App() {
         <div className="page">
             <div className="page__container">
                 <CurrentUserContext.Provider value={currentUser}>
+                    <Header />
+
                     <Switch>
-                            <Route path="/sign-up">
-                                <Register />
-                            </Route>
-
-                            <Route path="/sign-in">
-                            <Login />
-                            </Route>
-
-                            <Header />
-
-                            <ProtectedRoute
-                                path="/main"
-                                loggedIn={loggedIn}
-                                component={Main}
-                                handleEditAvatarClick={handleEditAvatarClick}                 
-                                handleEditProfileClick={handleEditProfileClick}        
-                                handleAddPlaceClick={handleAddPlaceClick}
-                                handleCardClick={handleCardClick}
-                                handleLikeClick={handleCardLike}
-                                handleCardDelete={handleCardDelete}
-                                cards={cards}
+                        <ProtectedRoute
+                            path="/main"
+                            loggedIn={loggedIn}
+                            component={Main}
+                            handleEditAvatarClick={handleEditAvatarClick}                 
+                            handleEditProfileClick={handleEditProfileClick}        
+                            handleAddPlaceClick={handleAddPlaceClick}
+                            handleCardClick={handleCardClick}
+                            handleLikeClick={handleCardLike}
+                            handleCardDelete={handleCardDelete}
+                            cards={cards}
                                 
-                            />
+                        />
 
-                            {loggedIn && <Footer />}
+                        <Route path="/sign-up">
+                            <Register />
+                        </Route>
 
-                            
+                        <Route path="/sign-in">
+                            <Login />
+                        </Route>
 
-                            <ImagePopup
-                                card={selectedCard}
-                                onClose={closeAllPopups}
-                                isOpen={isBigPhotoPopupOpen}
-                                onOvarlayClose={closeByOverlay}
-                            />
+                        {loggedIn && <Footer />}
+
+                        <Route>
+                            {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
+                        </Route>
+  
+                    </Switch>
+
+                    <ImagePopup
+                        card={selectedCard}
+                        onClose={closeAllPopups}
+                        isOpen={isBigPhotoPopupOpen}
+                        onOvarlayClose={closeByOverlay}
+                    />
                             
-                            <EditProfilePopup
-                                isOpen={isEditProfilePopupOpen}
-                                onClose={closeAllPopups}
-                                onOvarlayClose={closeByOverlay}
-                                onSubmit={handleUpdateUser}
-                            />
+                    <EditProfilePopup
+                        isOpen={isEditProfilePopupOpen}
+                        onClose={closeAllPopups}
+                        onOvarlayClose={closeByOverlay}
+                        onSubmit={handleUpdateUser}
+                    />
                             
-                            <AddPlacePopup
-                                isOpen={isAddPlacePopupOpen}
-                                onClose={closeAllPopups}
-                                onOvarlayClose={closeByOverlay}
-                                onSubmit={handleAddPlaceSubmit}
-                            />
+                    <AddPlacePopup
+                        isOpen={isAddPlacePopupOpen}
+                        onClose={closeAllPopups}
+                        onOvarlayClose={closeByOverlay}
+                        onSubmit={handleAddPlaceSubmit}
+                    />
                             
-                            <EditAvatarPopup
-                                isOpen={isEditAvatarPopupOpen}
-                                onClose={closeAllPopups}
-                                onOvarlayClose={closeByOverlay}
-                                onSubmit={handleUpdateAvatar}
-                            /> 
+                    <EditAvatarPopup
+                        isOpen={isEditAvatarPopupOpen}
+                        onClose={closeAllPopups}
+                        onOvarlayClose={closeByOverlay}
+                        onSubmit={handleUpdateAvatar}
+                    /> 
                            
-                            <PopupWithForm 
-                                name="deleteСard"
-                                title="Вы уверены?" 
-                                children={<>
-                                    <button type="submit" className="popup__save popup__save_type_deleteСard">Да</button>
-                                </>}
-                            />
+                    <PopupWithForm 
+                        name="deleteСard"
+                        title="Вы уверены?" 
+                        children={<>
+                            <button type="submit" className="popup__save popup__save_type_deleteСard">Да</button>
+                        </>}
+                    />
+                        
+                </CurrentUserContext.Provider>
+            </div>
+        </div>
+    );
+}
+export default App;
 
-                            <Route>
-                                {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
-                            </Route>
-                           
-                            {/* <ProtectedRoute path="/ducks" loggedIn={loggedIn} onSignOut={handleSignOut} component={Ducks} /> */}
+
+
+{/* <ProtectedRoute path="/ducks" loggedIn={loggedIn} onSignOut={handleSignOut} component={Ducks} /> */}
                             {/* <Route path="/main">
                                 <Header />
                                 <Main
@@ -256,11 +265,3 @@ function App() {
                                     </>}
                                 />
                             </Route> */}
-                    </Switch>
-                        
-                </CurrentUserContext.Provider>
-            </div>
-        </div>
-    );
-}
-export default App;
