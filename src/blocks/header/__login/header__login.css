@@ -1,4 +1,5 @@
 .header__login {
+    text-decoration: none;
     align-self: center;
     outline: none;
     font-weight: normal;

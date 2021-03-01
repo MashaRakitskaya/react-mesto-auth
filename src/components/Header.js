@@ -17,21 +17,21 @@ function Header() {
         <header className="header">
             <img className="header__logo" src={logo} alt="Логотип" />
             <Switch>
-                <Route>
+                {/* <Route>
 
-                </Route>
-
+                </Route> */}
                 <Route path="/sign-up">
                     <Link to="/sign-in" className="header__registration">
-                        Регистрация
+                        Войти
                     </Link>
                 </Route>
 
                 <Route path="/sign-in">
                     <Link to="/sign-up" className="header__login">
-                        Войти
+                        Регистрация
                     </Link>
                 </Route>
+
             </Switch>
         </header>
     );

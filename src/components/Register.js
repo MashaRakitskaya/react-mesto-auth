@@ -1,4 +1,5 @@
-import Header from './Header.js';
+// import Header from './Header.js';
+import { Link } from 'react-router-dom';
 
 function Register() {
     return(
@@ -20,7 +21,7 @@ function Register() {
                 </label>
                 <button type="submit" className="sign-up__save" value="Зарегистрироваться">Зарегистрироваться</button>
             </form>
-            <p className="sign-up__already-registered">Уже зарегистрированы?<a className="sign-up__login" href="#" target="_blank"> Войти</a></p>
+            <p className="sign-up__already-registered">Уже зарегистрированы?<Link  className="sign-up__login" to="/sign-in"> Войти</Link></p>
             </div>
         </section>
         </>
