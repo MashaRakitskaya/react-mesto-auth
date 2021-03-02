@@ -3,7 +3,7 @@ import Main from "./Main.js";
 import Footer from "./Footer.js";
 import PopupWithForm from "./PopupWithForm.js";
 import ImagePopup from "./ImagePopup.js";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import api from "../utils/api";
 import { CurrentUserContext }  from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup.js";
@@ -11,8 +11,9 @@ import EditAvatarPopup from "./EditAvatarPopup.js";
 import AddPlacePopup from "./AddPlacePopup.js";
 import Register from "./Register.js";
 import Login from "./Login.js";
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute.js";
+import * as auth from '../utils/auth.js';
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -23,7 +24,18 @@ function App() {
     const [currentUser, setCurrentUser] = useState({});
     const [cards, setCards] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
-    // const loggedIn = false;
+    const history = useHistory();
+    const initialData = {
+        email: '',
+        password: '',
+    };
+    const [data, setData] = useState(initialData);
+    // const [data, setData] = useState({
+    //     email: '',
+    //     password: '',
+    // });
+    const [userEmail, setUserEmail] = useState(data);
+    
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true)
@@ -128,12 +140,61 @@ function App() {
         .catch(err => console.log(`Ошибка отправки информации${err}`))
     };
 
+    const handleRegister = ({ email, password }) => {
+        return auth.register(email, password)
+        .then((result) => {
+            if (!result || result.statusCode === 400) throw new Error('Что-то пошло не так');
+            return result;
+        })
+    };
+
+    const handleLogin = ({ email, password }) => {
+        return auth.authorize(email, password)
+        .then((result) => {
+            if (!result || result.statusCode === 400) throw new Error('Что-то пошло не так');
+            if (result.token) {
+                setLoggedIn(true);
+                setData({ 
+                    email: result.email,
+                    password: result.password
+                })
+                localStorage.setItem('token', result.token);
+            }
+        })
+        
+    };
+
+    const handleTokenCheck = useCallback(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            auth.getContent(token)
+            .then((result) => {
+            if (result) {
+                setLoggedIn(true)
+                // setData({ email: result.email })
+                setUserEmail(result.data.email)
+                // console.log(result.data.email)
+                history.push('/main')
+            }
+            })
+            .catch(() => history.push('/login'))
+        }
+    }, [history])
+
+    useEffect(() => {
+        handleTokenCheck();
+    }, [handleTokenCheck]);
+
+    const handleSignOut = () => {
+
+    };
+
     return (
         <div className="page">
             <div className="page__container">
                 <CurrentUserContext.Provider value={currentUser}>
-                    <Header />
-
+                    <Header loggedIn={loggedIn} userEmail={userEmail} />
+                    
                     <Switch>
                         <ProtectedRoute
                             path="/main"
@@ -146,21 +207,21 @@ function App() {
                             handleLikeClick={handleCardLike}
                             handleCardDelete={handleCardDelete}
                             cards={cards}
-                                
+                            // userData={data}   
                         />
 
-                        <Route path="/sign-up">
-                            <Register />
+                        <Route path="/signup">
+                            <Register onRegister={handleRegister} />
                         </Route>
 
-                        <Route path="/sign-in">
-                            <Login />
+                        <Route path="/signin">
+                            <Login onLogin={handleLogin} handleTokenCheck={handleTokenCheck} />
                         </Route>
 
                         {loggedIn && <Footer />}
 
                         <Route>
-                            {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
+                            {loggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
                         </Route>
   
                     </Switch>
@@ -207,61 +268,3 @@ function App() {
     );
 }
 export default App;
-
-
-
-{/* <ProtectedRoute path="/ducks" loggedIn={loggedIn} onSignOut={handleSignOut} component={Ducks} /> */}
-                            {/* <Route path="/main">
-                                <Header />
-                                <Main
-                                    handleEditAvatarClick={handleEditAvatarClick}                 
-                                    handleEditProfileClick={handleEditProfileClick}        
-                                    handleAddPlaceClick={handleAddPlaceClick}
-                                    handleCardClick={handleCardClick}
-                                    handleLikeClick={handleCardLike}
-                                    handleCardDelete={handleCardDelete}
-                                    cards={cards}
-                                />
-                                <Footer />
-                            </Route> */}
-                            {/* <Route>
-                                <ImagePopup
-                                    card={selectedCard}
-                                    onClose={closeAllPopups}
-                                    isOpen={isBigPhotoPopupOpen}
-                                    onOvarlayClose={closeByOverlay}
-                                />
-                            </Route>
-                            <Route>
-                                <EditProfilePopup
-                                    isOpen={isEditProfilePopupOpen}
-                                    onClose={closeAllPopups}
-                                    onOvarlayClose={closeByOverlay}
-                                    onSubmit={handleUpdateUser}
-                                />
-                            </Route>
-                            <Route>
-                                <AddPlacePopup
-                                    isOpen={isAddPlacePopupOpen}
-                                    onClose={closeAllPopups}
-                                    onOvarlayClose={closeByOverlay}
-                                    onSubmit={handleAddPlaceSubmit}
-                                />
-                            </Route>
-                            <Route>
-                                <EditAvatarPopup
-                                    isOpen={isEditAvatarPopupOpen}
-                                    onClose={closeAllPopups}
-                                    onOvarlayClose={closeByOverlay}
-                                    onSubmit={handleUpdateAvatar}
-                                /> 
-                            </Route>
-                            <Route>
-                                <PopupWithForm 
-                                    name="deleteСard"
-                                    title="Вы уверены?" 
-                                    children={<>
-                                        <button type="submit" className="popup__save popup__save_type_deleteСard">Да</button>
-                                    </>}
-                                />
-                            </Route> */}

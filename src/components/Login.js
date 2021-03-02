@@ -1,26 +1,65 @@
-// import Header from './Header.js';
+import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 
-function Login() {
+function Login({ onLogin }) {
+    const initialData = {
+        email: '',
+        password: '',
+    };
+    const [data, setData] = useState(initialData);
+    const history = useHistory();
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setData(data => ({
+          ...data,
+          [name]: value,
+        }));
+    };
+
+    const handleSubmit =  (event) => {
+        event.preventDefault();
+
+        if (!data.email || !data.password) {
+            return;
+        }
+
+        onLogin(data)
+        // .then(resetForm)
+        .then(() => history.push('/main'))
+        // .catch(err => setMessage(err.message || 'Что-то пошло не так'))
+    };
+
     return(
         <>
-        {/* <Header>
-            <button className="header__registration">Регистрация</button>
-        </Header> */}
         <section className="login">
             <div className="login__content">
             <h3 className="login__title">Вход</h3>
-            <form className="login__form" noValidate>
+            <form onSubmit={handleSubmit} className="login__form" noValidate>
                 <label className="login__input-label" htmlFor="login-email-input">
-                    <input id='login-email-input' className="login__input login__input_type_email" type="email" name="email" minLength="2"  maxLength="40" required />
+                    <input
+                        value={data.email}
+                        id='login-email-input'
+                        className="login__input login__input_type_email"
+                        type="email"
+                        name="email"
+                        onChange={handleChange}
+                    />
                     <span id="login-email-input-error" className="login__input-error"></span>
                 </label>
                 <label className="login__input-label" htmlFor="login-password-input">
-                    <input id='login-password-input' className="login__input login__input_type_password" type="password" name="password" minLength="2"  maxLength="200" required />
+                    <input
+                        value={data.password}
+                        id='login-password-input'
+                        className="login__input login__input_type_password"
+                        type="password"
+                        name="password"
+                        onChange={handleChange}
+                    />
                     <span id="login-password-input-error" className="login__input-error"></span>
                 </label>
                 <button type="submit" className="login__save" value="Зарегистрироваться">Войти</button>
             </form>
-            {/* <p className="login__already-registered">Уже зарегистрированы?<a className="sign-up__login" href="#" target="_blank"> Войти</a></p> */}
             </div>
         </section>
         </>
