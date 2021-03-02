@@ -30,11 +30,8 @@ function App() {
         password: '',
     };
     const [data, setData] = useState(initialData);
-    // const [data, setData] = useState({
-    //     email: '',
-    //     password: '',
-    // });
-    const [userEmail, setUserEmail] = useState(data);
+    
+    const [userEmail, setUserEmail] = useState(data.email);
     
 
     function handleEditAvatarClick() {
@@ -185,9 +182,9 @@ function App() {
         handleTokenCheck();
     }, [handleTokenCheck]);
 
-    const handleSignOut = () => {
+    // const handleSignOut = () => {
 
-    };
+    // };
 
     return (
         <div className="page">
@@ -218,13 +215,15 @@ function App() {
                             <Login onLogin={handleLogin} handleTokenCheck={handleTokenCheck} />
                         </Route>
 
-                        {loggedIn && <Footer />}
+                        {/* {loggedIn && <Footer />} */}
 
                         <Route>
                             {loggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
                         </Route>
   
                     </Switch>
+
+                    {loggedIn && <Footer />}
 
                     <ImagePopup
                         card={selectedCard}
