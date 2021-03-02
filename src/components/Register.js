@@ -50,6 +50,7 @@ function Register({onRegister}) {
                         type="email"
                         name="email"
                         onChange={handleChange}
+                        placeholder="Email"
                     />
                     <span id="sign-up-email-input-error" className="sign-up__input-error"></span>
                 </label>
@@ -61,6 +62,7 @@ function Register({onRegister}) {
                         type="password"
                         name="password"
                         onChange={handleChange}
+                        placeholder="Пароль"
                     />
                     <span id="sign-up-password-input-error" className="sign-up__input-error"></span>
                 </label>

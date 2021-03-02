@@ -44,6 +44,7 @@ function Login({ onLogin }) {
                         type="email"
                         name="email"
                         onChange={handleChange}
+                        placeholder="Email"
                     />
                     <span id="login-email-input-error" className="login__input-error"></span>
                 </label>
@@ -55,6 +56,7 @@ function Login({ onLogin }) {
                         type="password"
                         name="password"
                         onChange={handleChange}
+                        placeholder="Пароль"
                     />
                     <span id="login-password-input-error" className="login__input-error"></span>
                 </label>

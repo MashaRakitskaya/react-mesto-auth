@@ -14,12 +14,16 @@ import Login from "./Login.js";
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute.js";
 import * as auth from '../utils/auth.js';
+import InfoTooltip from "./InfoTooltip.js";
+import allowUnion from "../images/allowUnion.svg";
+import denyUnion from "../images/denyUnion.svg";
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
     const [isBigPhotoPopupOpen, setIsBigPhotoPopupOpen] = useState(false);
+    const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState({});
     const [currentUser, setCurrentUser] = useState({});
     const [cards, setCards] = useState([]);
@@ -33,6 +37,9 @@ function App() {
     
     const [userEmail, setUserEmail] = useState(data.email);
     
+    function handleInfoTooltip() {
+        setInfoTooltipPopupOpen(true) 
+    };
 
     function handleEditAvatarClick() {
         setIsEditAvatarPopupOpen(true)
@@ -163,14 +170,15 @@ function App() {
 
     const handleTokenCheck = useCallback(() => {
         const token = localStorage.getItem('token');
+        console.log(localStorage.getItem('token'));
         if (token) {
-            auth.getContent(token)
+            auth.checkToken(token)
             .then((result) => {
             if (result) {
                 setLoggedIn(true)
                 // setData({ email: result.email })
                 setUserEmail(result.data.email)
-                // console.log(result.data.email)
+                console.log(result.data.email)
                 history.push('/main')
             }
             })
@@ -188,6 +196,7 @@ function App() {
         setData(initialData);
         setLoggedIn(false);
         history.push('/signin');
+        // console.log(localStorage.getItem('token'));
     };
     // console.log(localStorage.getItem('token'));
 
@@ -264,6 +273,24 @@ function App() {
                         children={<>
                             <button type="submit" className="popup__save popup__save_type_deleteСard">Да</button>
                         </>}
+                    />
+
+                    <InfoTooltip
+                      title="Вы успешно зарегистрировались!"
+                      src={allowUnion}
+                      alt="allow"
+                      isOpen={isInfoTooltipPopupOpen}
+                      onClose={closeAllPopups}
+                      onOvarlayClose={closeByOverlay}  
+                    />
+
+                    <InfoTooltip
+                      title="Что-то пошло не так! Попробуйте ещё раз."
+                      src={denyUnion}
+                      alt="allow"
+                      isOpen={isInfoTooltipPopupOpen}
+                      onClose={closeAllPopups}
+                      onOvarlayClose={closeByOverlay}  
                     />
                         
                 </CurrentUserContext.Provider>

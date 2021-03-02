@@ -1,0 +1,14 @@
+.popup__content_type_info-tool-tip{
+    padding-left: 36px;
+    padding-right: 36px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+@media screen and (max-width: 730px) {
+    .popup__content_type_info-tool-tip {
+        padding-left: 18px;
+        padding-right: 18px;
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+}
