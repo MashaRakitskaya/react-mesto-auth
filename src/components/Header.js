@@ -2,18 +2,19 @@ import logo from '../images/Vector.svg';
 import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
-function Header({  userEmail }) {
+function Header({  userEmail, onSignOut }) {
 
     return (
         <header className="header">
             <img className="header__logo" src={logo} alt="Логотип" />
             <Switch>
-                <Route exact path="/main">
+                <Route path="/main">
                     <div className="header__container-email-exit">
                         <p className="header__email">{userEmail}</p>
-                        <Link to="/signin" className="header__exit">
+                        <Link onClick={onSignOut} to="/signin" className="header__exit">
                             Выйти
                         </Link>
+                        {/* <button onClick={onSignOut} className="header__exit">Выйти</button> */}
                     </div>
                 </Route>
                 <Route path="/signup">

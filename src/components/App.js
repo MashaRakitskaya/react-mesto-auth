@@ -174,7 +174,7 @@ function App() {
                 history.push('/main')
             }
             })
-            .catch(() => history.push('/login'))
+            .catch(() => history.push('/signin'))
         }
     }, [history])
 
@@ -182,15 +182,20 @@ function App() {
         handleTokenCheck();
     }, [handleTokenCheck]);
 
-    // const handleSignOut = () => {
-
-    // };
+    const handleSignOut = () => {
+        localStorage.removeItem('token');
+        // console.log(localStorage.removeItem('token'));
+        setData(initialData);
+        setLoggedIn(false);
+        history.push('/signin');
+    };
+    // console.log(localStorage.getItem('token'));
 
     return (
         <div className="page">
             <div className="page__container">
                 <CurrentUserContext.Provider value={currentUser}>
-                    <Header loggedIn={loggedIn} userEmail={userEmail} />
+                    <Header onSignOut={handleSignOut} loggedIn={loggedIn} userEmail={userEmail} />
                     
                     <Switch>
                         <ProtectedRoute
