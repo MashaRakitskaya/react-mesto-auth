@@ -1,6 +1,8 @@
 {
   "name": "react-mesto-auth",
   "version": "0.1.0",
+  "description": "Интерактивной страницей, куда можно добавлять фотографии, удалять их и ставить лайки.",
+  "author": "Maryia Rakitskaya",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
@@ -16,8 +18,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
+  "homepage": "https://masharakitskaya.github.io/mesto-react-auth/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -35,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.1.0"
   }
 }
