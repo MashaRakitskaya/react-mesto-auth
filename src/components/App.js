@@ -166,8 +166,6 @@ function App() {
                 localStorage.setItem('token', result.token);
                 setData({ email: email })
                 history.push('/main')
-                // setUserEmail(result.data.email)
-                
             }
         })
         
