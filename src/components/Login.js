@@ -25,7 +25,6 @@ function Login({ onLogin }) {
         }
 
         onLogin(data)
-        // .then(resetForm)
         .then(() => history.push('/main'))
         // .catch(err => setMessage(err.message || 'Что-то пошло не так'))
     };

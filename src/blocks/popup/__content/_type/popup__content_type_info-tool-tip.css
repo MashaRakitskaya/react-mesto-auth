@@ -3,6 +3,10 @@
     padding-right: 36px;
     padding-top: 60px;
     padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 @media screen and (max-width: 730px) {
     .popup__content_type_info-tool-tip {

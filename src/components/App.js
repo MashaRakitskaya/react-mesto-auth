@@ -185,7 +185,7 @@ function App() {
             .then((result) => {
             if (result) {
                 setLoggedIn(true)
-                // setData({ email: result.email })
+                // setData({ email: result.user.email })
                 setUserEmail(result.data.email)
                 console.log(result.data.email)
                 history.push('/main')
@@ -199,24 +199,19 @@ function App() {
         handleTokenCheck();
     }, [handleTokenCheck]);
 
-
-
-
     const handleSignOut = () => {
         localStorage.removeItem('token');
-        // console.log(localStorage.removeItem('token'));
         setData(initialData);
         setLoggedIn(false);
         history.push('/signin');
         // console.log(localStorage.getItem('token'));
     };
-    // console.log(localStorage.getItem('token'));
 
     return (
         <div className="page">
             <div className="page__container">
                 <CurrentUserContext.Provider value={currentUser}>
-                    <Header onSignOut={handleSignOut} loggedIn={loggedIn} userEmail={userEmail} />
+                    <Header onSignOut={handleSignOut} userEmail={userEmail} />
                     
                     <Switch>
                         <ProtectedRoute
@@ -229,8 +224,7 @@ function App() {
                             handleCardClick={handleCardClick}
                             handleLikeClick={handleCardLike}
                             handleCardDelete={handleCardDelete}
-                            cards={cards}
-                            // userData={data}   
+                            cards={cards}  
                         />
 
                         <Route path="/signup">
