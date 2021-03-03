@@ -14,7 +14,6 @@ function Header({  userEmail, onSignOut }) {
                         <Link onClick={onSignOut} to="/signin" className="header__exit">
                             Выйти
                         </Link>
-                        {/* <button onClick={onSignOut} className="header__exit">Выйти</button> */}
                     </div>
                 </Route>
                 <Route path="/signup">

@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 
 function Login({ onLogin }) {
@@ -7,7 +7,8 @@ function Login({ onLogin }) {
         password: '',
     };
     const [data, setData] = useState(initialData);
-    const history = useHistory();
+    // const history = useHistory();
+    // const [data, setData] = useState({ email: ''});
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -19,14 +20,7 @@ function Login({ onLogin }) {
 
     const handleSubmit =  (event) => {
         event.preventDefault();
-
-        if (!data.email || !data.password) {
-            return;
-        }
-
-        onLogin(data)
-        .then(() => history.push('/main'))
-        // .catch(err => setMessage(err.message || 'Что-то пошло не так'))
+        onLogin(data.email, data.password)
     };
 
     return(

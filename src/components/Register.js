@@ -1,4 +1,5 @@
-import { Link, useHistory } from 'react-router-dom';
+// import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 function Register({onRegister}) {
@@ -7,13 +8,7 @@ function Register({onRegister}) {
         password: '',
     };
     const [data, setData] = useState(initialData);
-    const history = useHistory();
-    // const [message, setMessage] = useState('');
-
-    // const resetForm = () => {
-    //     setData(initialData);
-    //     setMessage('');
-    // }
+    // const history = useHistory();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -25,15 +20,8 @@ function Register({onRegister}) {
 
     const handleSubmit =  (event) => {
         event.preventDefault();
-
-        if (!data.email || !data.password) {
-            return;
-        }
-
-        onRegister(data)
-        // .then(resetForm)
-        .then(() => history.push('/signin'))
-        // .catch(err => setMessage(err.message || 'Что-то пошло не так'))
+        // onRegister(data)
+        onRegister(data.email, data.password)
     };
 
     return(

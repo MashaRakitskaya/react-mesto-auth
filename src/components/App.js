@@ -30,13 +30,7 @@ function App() {
     const [cards, setCards] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
     const history = useHistory();
-    const initialData = {
-        email: '',
-        password: '',
-    };
-    const [data, setData] = useState(initialData);
-    
-    const [userEmail, setUserEmail] = useState(data.email);
+    const [data, setData] = useState({ email: ''});
     
     function handleAllowInfoTooltip() {
         setAllowInfoTooltipPopupOpen(true)
@@ -151,27 +145,29 @@ function App() {
         .catch(err => console.log(`Ошибка отправки информации${err}`))
     };
 
-    const handleRegister = ({ email, password }) => {
-        return auth.register(email, password)
+    function handleRegister(email, password) {
+        auth.register(email, password)
         .then((result) => {
             handleAllowInfoTooltip()
-            if (!result || result.statusCode === 400) throw new Error('Что-то пошло не так');
-            return result;
+            history.push('/signin')
         })
-        .catch(()=> {handleDenyInfoTooltip()})
+        .catch((err)=> {
+            handleDenyInfoTooltip()
+            history.push('/signup')
+            console.log(`${err}`)
+        })
     };
 
-    const handleLogin = ({ email, password }) => {
-        return auth.authorize(email, password)
+    function handleLogin (email, password) {
+        auth.authorize(email, password)
         .then((result) => {
-            if (!result || result.statusCode === 400) throw new Error('Что-то пошло не так');
             if (result.token) {
                 setLoggedIn(true);
-                setData({ 
-                    email: result.email,
-                    password: result.password
-                })
                 localStorage.setItem('token', result.token);
+                setData({ email: email })
+                history.push('/main')
+                // setUserEmail(result.data.email)
+                
             }
         })
         
@@ -185,34 +181,36 @@ function App() {
             .then((result) => {
             if (result) {
                 setLoggedIn(true)
-                // setData({ email: result.user.email })
-                setUserEmail(result.data.email)
-                console.log(result.data.email)
+                setData({ email: result.data.email })
                 history.push('/main')
             }
             })
-            .catch(() => history.push('/signin'))
+            .catch((err) => {
+                history.push('/signin');
+                console.log(`${err}`);
+            } 
+            )
         }
-    }, [history])
+    }, [history]);
 
     useEffect(() => {
         handleTokenCheck();
     }, [handleTokenCheck]);
 
-    const handleSignOut = () => {
+    function handleSignOut() {
         localStorage.removeItem('token');
-        setData(initialData);
+        // setData(initialData);
+        setData({ email: ''});
         setLoggedIn(false);
         history.push('/signin');
-        // console.log(localStorage.getItem('token'));
+        console.log(localStorage.getItem('token'));
     };
 
     return (
         <div className="page">
             <div className="page__container">
                 <CurrentUserContext.Provider value={currentUser}>
-                    <Header onSignOut={handleSignOut} userEmail={userEmail} />
-                    
+                    <Header onSignOut={handleSignOut} userEmail={data.email} />
                     <Switch>
                         <ProtectedRoute
                             path="/main"

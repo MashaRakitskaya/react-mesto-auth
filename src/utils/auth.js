@@ -42,4 +42,5 @@ export const checkToken = (token) => {
       }
     })
     .then(response => checkAnswerCorrectness(response))
+    .then(data => data)
 };
