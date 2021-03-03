@@ -23,7 +23,8 @@ function App() {
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
     const [isBigPhotoPopupOpen, setIsBigPhotoPopupOpen] = useState(false);
-    const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
+    const [isaAllowInfoTooltipPopupOpen, setAllowInfoTooltipPopupOpen] = useState(false);
+    const [isDenyInfoTooltipPopupOpen, setDenyInfoTooltipPopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState({});
     const [currentUser, setCurrentUser] = useState({});
     const [cards, setCards] = useState([]);
@@ -37,8 +38,12 @@ function App() {
     
     const [userEmail, setUserEmail] = useState(data.email);
     
-    function handleInfoTooltip() {
-        setInfoTooltipPopupOpen(true) 
+    function handleAllowInfoTooltip() {
+        setAllowInfoTooltipPopupOpen(true)
+    };
+
+    function handleDenyInfoTooltip() {
+        setDenyInfoTooltipPopupOpen(true)
     };
 
     function handleEditAvatarClick() {
@@ -63,6 +68,8 @@ function App() {
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
         setIsBigPhotoPopupOpen(false);
+        setAllowInfoTooltipPopupOpen(false);
+        setDenyInfoTooltipPopupOpen(false);
         setSelectedCard({});
     };
 
@@ -147,9 +154,11 @@ function App() {
     const handleRegister = ({ email, password }) => {
         return auth.register(email, password)
         .then((result) => {
+            handleAllowInfoTooltip()
             if (!result || result.statusCode === 400) throw new Error('Что-то пошло не так');
             return result;
         })
+        .catch(()=> {handleDenyInfoTooltip()})
     };
 
     const handleLogin = ({ email, password }) => {
@@ -189,6 +198,9 @@ function App() {
     useEffect(() => {
         handleTokenCheck();
     }, [handleTokenCheck]);
+
+
+
 
     const handleSignOut = () => {
         localStorage.removeItem('token');
@@ -279,7 +291,7 @@ function App() {
                       title="Вы успешно зарегистрировались!"
                       src={allowUnion}
                       alt="allow"
-                      isOpen={isInfoTooltipPopupOpen}
+                      isOpen={isaAllowInfoTooltipPopupOpen}
                       onClose={closeAllPopups}
                       onOvarlayClose={closeByOverlay}  
                     />
@@ -288,7 +300,7 @@ function App() {
                       title="Что-то пошло не так! Попробуйте ещё раз."
                       src={denyUnion}
                       alt="allow"
-                      isOpen={isInfoTooltipPopupOpen}
+                      isOpen={isDenyInfoTooltipPopupOpen}
                       onClose={closeAllPopups}
                       onOvarlayClose={closeByOverlay}  
                     />
