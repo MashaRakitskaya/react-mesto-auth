@@ -199,7 +199,6 @@ function App() {
 
     function handleSignOut() {
         localStorage.removeItem('token');
-        // setData(initialData);
         setData({ email: ''});
         setLoggedIn(false);
         history.push('/signin');
