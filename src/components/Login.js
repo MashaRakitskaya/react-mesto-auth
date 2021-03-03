@@ -1,4 +1,3 @@
-// import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 
 function Login({ onLogin }) {
@@ -7,8 +6,6 @@ function Login({ onLogin }) {
         password: '',
     };
     const [data, setData] = useState(initialData);
-    // const history = useHistory();
-    // const [data, setData] = useState({ email: ''});
 
     const handleChange = (event) => {
         const { name, value } = event.target;

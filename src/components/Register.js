@@ -1,4 +1,3 @@
-// import { Link, useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -8,7 +7,6 @@ function Register({onRegister}) {
         password: '',
     };
     const [data, setData] = useState(initialData);
-    // const history = useHistory();
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -20,8 +18,7 @@ function Register({onRegister}) {
 
     const handleSubmit =  (event) => {
         event.preventDefault();
-        // onRegister(data)
-        onRegister(data.email, data.password)
+        onRegister(data.email, data.password);
     };
 
     return(

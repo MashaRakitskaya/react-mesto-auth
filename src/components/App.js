@@ -164,11 +164,10 @@ function App() {
             if (result.token) {
                 setLoggedIn(true);
                 localStorage.setItem('token', result.token);
-                setData({ email: email })
-                history.push('/main')
+                setData({ email: email });
+                history.push('/main');
             }
         })
-        
     };
 
     const handleTokenCheck = useCallback(() => {
