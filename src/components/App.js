@@ -230,8 +230,6 @@ function App() {
                             <Login onLogin={handleLogin} handleTokenCheck={handleTokenCheck} />
                         </Route>
 
-                        {/* {loggedIn && <Footer />} */}
-
                         <Route>
                             {loggedIn ? <Redirect to="/main" /> : <Redirect to="/signin" />}
                         </Route>
