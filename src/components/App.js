@@ -270,24 +270,6 @@ function App() {
                         </>}
                     />
 
-                    {/* <InfoTooltip
-                      title="Вы успешно зарегистрировались!"
-                      src={allowUnion}
-                      alt="allow"
-                      isOpen={isaAllowInfoTooltipPopupOpen}
-                      onClose={closeAllPopups}
-                      onOvarlayClose={closeByOverlay}  
-                    /> */}
-
-                    {/* <InfoTooltip
-                      title="Что-то пошло не так! Попробуйте ещё раз."
-                      src={denyUnion}
-                      alt="allow"
-                      isOpen={isDenyInfoTooltipPopupOpen}
-                      onClose={closeAllPopups}
-                      onOvarlayClose={closeByOverlay}  
-                    /> */}
-
                     <InfoTooltip
                       title={isInfoTooltipInformation.title}
                       icon={isInfoTooltipInformation.icon}
