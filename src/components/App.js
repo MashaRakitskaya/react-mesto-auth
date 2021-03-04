@@ -15,29 +15,23 @@ import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
 import ProtectedRoute from "./ProtectedRoute.js";
 import * as auth from '../utils/auth.js';
 import InfoTooltip from "./InfoTooltip.js";
-import allowUnion from "../images/allowUnion.svg";
-import denyUnion from "../images/denyUnion.svg";
 
 function App() {
     const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
     const [isBigPhotoPopupOpen, setIsBigPhotoPopupOpen] = useState(false);
-    const [isaAllowInfoTooltipPopupOpen, setAllowInfoTooltipPopupOpen] = useState(false);
-    const [isDenyInfoTooltipPopupOpen, setDenyInfoTooltipPopupOpen] = useState(false);
     const [selectedCard, setSelectedCard] = useState({});
     const [currentUser, setCurrentUser] = useState({});
     const [cards, setCards] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
     const history = useHistory();
     const [data, setData] = useState({ email: ''});
+    const [isInfoTooltipInformation, setInfoTooltipInformation] = useState({title: "Вы успешно зарегистрировались!", icon: true});
+    const [isInfoTooltipPopupOpen, setInfoTooltipPopupOpen] = useState(false);
     
-    function handleAllowInfoTooltip() {
-        setAllowInfoTooltipPopupOpen(true)
-    };
-
-    function handleDenyInfoTooltip() {
-        setDenyInfoTooltipPopupOpen(true)
+    function handleInfoTooltip() {
+        setInfoTooltipPopupOpen(true)
     };
 
     function handleEditAvatarClick() {
@@ -62,8 +56,7 @@ function App() {
         setIsEditProfilePopupOpen(false);
         setIsAddPlacePopupOpen(false);
         setIsBigPhotoPopupOpen(false);
-        setAllowInfoTooltipPopupOpen(false);
-        setDenyInfoTooltipPopupOpen(false);
+        setInfoTooltipPopupOpen(false)
         setSelectedCard({});
     };
 
@@ -148,11 +141,12 @@ function App() {
     function handleRegister(email, password) {
         auth.register(email, password)
         .then((result) => {
-            handleAllowInfoTooltip()
+            handleInfoTooltip()
             history.push('/signin')
         })
         .catch((err)=> {
-            handleDenyInfoTooltip()
+            handleInfoTooltip()
+            setInfoTooltipInformation({title: "Что-то пошло не так! Попробуйте ещё раз.", icon: false})
             history.push('/signup')
             console.log(`${err}`)
         })
@@ -167,6 +161,9 @@ function App() {
                 setData({ email: email });
                 history.push('/main');
             }
+        })
+        .catch((err) => {
+            console.log(`${err}`);
         })
     };
 
@@ -273,20 +270,28 @@ function App() {
                         </>}
                     />
 
-                    <InfoTooltip
+                    {/* <InfoTooltip
                       title="Вы успешно зарегистрировались!"
                       src={allowUnion}
                       alt="allow"
                       isOpen={isaAllowInfoTooltipPopupOpen}
                       onClose={closeAllPopups}
                       onOvarlayClose={closeByOverlay}  
-                    />
+                    /> */}
 
-                    <InfoTooltip
+                    {/* <InfoTooltip
                       title="Что-то пошло не так! Попробуйте ещё раз."
                       src={denyUnion}
                       alt="allow"
                       isOpen={isDenyInfoTooltipPopupOpen}
+                      onClose={closeAllPopups}
+                      onOvarlayClose={closeByOverlay}  
+                    /> */}
+
+                    <InfoTooltip
+                      title={isInfoTooltipInformation.title}
+                      icon={isInfoTooltipInformation.icon}
+                      isOpen={isInfoTooltipPopupOpen}
                       onClose={closeAllPopups}
                       onOvarlayClose={closeByOverlay}  
                     />
