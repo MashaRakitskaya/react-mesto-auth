@@ -2,10 +2,10 @@
 
 [Project on github-pages](https://masharakitskaya.github.io/react-mesto-auth/)
 
-### Project description:
+### Description:
 Interactive web page with the ability to add/delete/like cards with a photo and place name. It is also possible to change user data and avatar. All data is stored on the server, interaction with which is based on API requests.
 
-### Project technologies:
+### Technologies:
 * HTML
 * CSS
 * React
