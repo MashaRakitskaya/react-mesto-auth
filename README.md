@@ -1,43 +1,35 @@
-# Проект: Место на React
+# Project name: Place on React
 
-[Проект на github-pages](https://masharakitskaya.github.io/react-mesto-auth/)
+[Project on github-pages](https://masharakitskaya.github.io/react-mesto-auth/)
 
-В этом проекте используется React Router, а также авторизация и аутентификация пользователя.
+### Project description:
+Interactive web page with the ability to add/delete/like cards with a photo and place name. It is also possible to change user data and avatar. All data is stored on the server, interaction with which is based on API requests.
 
-### Описание проекта:
-Интерактивная веб-страница с возможностью добавления/удаления/лайк карточек с фотографией и названием места. Так же есть возможность изменять пользовательские данные и аватар. Все данные хранятся на сервере, взаимодействие с которым происходит через API запросы. 
-
-### Технологии проекта:
+### Project technologies:
 * HTML & CSS
 * JSX
 * DOM
 
-### Инструменты:
+### Tools:
 * Figma
 
-### Библиотека:
+### Library:
 * React
 
-### Функциональность:
-* Файловая структура проекта по правилам Nested БЭМ
-* Grid Layout и Flex-вёрстка
-* Адаптивность 
-* Все ссылки реагируют при наведении
-* Лайк карточки
-* Плавное открытие и закрытие попапов
-* Редактирование аватара и информации о пользователе
-* Возможность добавлять и удалять карточки. Удалять можно только карточки созданные пользователем.
-* Авторизация и аутентификация пользователя
+### Functionality:
+* The file structure of the project according to the rules of Nested BEM
+* Grid Layout and Flex Layout
+* Adaptive layout 
+* All links react on hover
+* Likes
+* Smooth opening and closing of popups
+* Editing avatar and user information
+* The ability to add and remove cards. You can only delete cards created by the user.
+* User authorization and authentication
 
-### Планирую реализовать:
-* Валидация форм
-* Визуализация процесса загрузки
-* Окно подтверждения удаления карточки
-* Пагинатор
+### Installation:
+* download the code
 
-### Установка:
-* скачай код
-
-   в корне папки с кодом:
-* `npm i` – установить зависимости проекта 
-* `npm start` - открой проект в браузере
+   in the root of the folder with the code:
+* `npm i` – install project dependencies
+* `npm start` - open the project in the browser
