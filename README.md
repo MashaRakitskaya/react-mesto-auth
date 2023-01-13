@@ -8,6 +8,7 @@ Interactive web page with the ability to add/delete/like cards with a photo and 
 ### Technologies:
 * HTML
 * CSS
+* JS
 * React
 * Git
 
