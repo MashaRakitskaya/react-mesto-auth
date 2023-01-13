@@ -1,4 +1,4 @@
-# Project name: Place
+# Project name: Mesto
 
 [Project on github-pages](https://masharakitskaya.github.io/react-mesto-auth/)
 
