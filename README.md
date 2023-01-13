@@ -1,4 +1,4 @@
-# Project name: Mesto
+# Mesto
 
 [Project on github-pages](https://masharakitskaya.github.io/react-mesto-auth/)
 
