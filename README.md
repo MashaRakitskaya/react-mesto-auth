@@ -7,8 +7,6 @@ Interactive web page with the ability to add/delete/like cards with a photo and 
 
 ### Project technologies:
 * HTML & CSS
-* JSX
-* DOM
 
 ### Tools:
 * Figma
