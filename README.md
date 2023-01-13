@@ -6,13 +6,10 @@
 Interactive web page with the ability to add/delete/like cards with a photo and place name. It is also possible to change user data and avatar. All data is stored on the server, interaction with which is based on API requests.
 
 ### Project technologies:
-* HTML & CSS
-
-### Tools:
-* Figma
-
-### Library:
+* HTML
+* CSS
 * React
+* Git
 
 ### Functionality:
 * The file structure of the project according to the rules of Nested BEM
